@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres
+    container_name: url-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: urls
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/
+
+  app:
+    build: .
+    container_name: url-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+
